@@ -84,17 +84,27 @@ form {
     background: var(--container-bg);
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .search > div {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    width: 100%;
 }
 
 input[type=text]::placeholder {
     color: var(--primary-text);
     opacity: 1;
+}
+
+.search > div:nth-of-type(1) {
+    width: 60%;
+}
+
+.search > div:nth-of-type(2) {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
 }
 
 input[type=text] {
@@ -103,7 +113,7 @@ input[type=text] {
     background: transparent;
     color: var(--primary-text);
     font-size: 15px;
-    width: 90%;
+    width: 100%;
     caret-color: var(--accent);
 }
 
@@ -162,6 +172,7 @@ input[type=submit]:hover {
 
 .user-name {
     display: flex;
+    gap: 3rem;
     align-items: center;
     justify-content: space-between;
 }
@@ -256,9 +267,189 @@ h4 {
     padding-left: 0.3rem;
 }
 
-.additional-info__grid-section > .twitter-link {
+.not-available {
     opacity: 0.5;
 }
+
+.error {
+    color: var(--error);
+    font-weight: 700;
+    transition: 100ms ease-in-out;
+}
+
+.active-error {
+    opacity: 1;
+}
+
+.inactive-error {
+    opacity: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1440px) {
+    .result-section {
+        flex-direction: column;
+        padding-bottom: 1rem;
+    }
+
+    .wrapper {
+        max-width: 600px;
+    }
+
+    .additional-info__grid-section {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        padding-top: 0;
+        position: relative;
+        top: -2.5rem;
+    }
+
+    input[type=text] {
+        font-size: 14px;
+      
+    }
+
+    .statistics {
+        gap: 5rem;
+        align-self: center;
+        padding: 1rem 3.5rem 1rem 1.8rem;
+        position: relative;
+        top: -5rem;
+    }
+    .bio {
+        position: relative;
+        top: -6.7rem;
+    }
+
+    .user-name {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: start;
+        justify-content: flex-start;
+        position: relative;
+        top: -8.5rem;
+        left: 9rem;
+    }
+
+    .joined-date {
+        position: relative;
+        top: 1.5rem;
+        font-size: 14px;
+    }
+
+    .user-nick {
+        position: relative;
+        top: -10.7rem;
+        left: 9rem;
+    }
+
+    .user-name > h1 {
+        font-size: 20px;
+    }
+
+    .result-section > img {
+        width: 7rem;
+    }
+
+    .count {
+        font-size: 20px;
+    }
+    .error {
+        line-height: 15px;
+        padding: 0 10px;
+        white-space: nowrap;
+    }
+    .search > div:nth-of-type(1) {
+        width: 80%;
+    }
+
+    form {
+        padding: 0.4rem 0.7rem 0.4rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .result-section {
+        flex-direction: column;
+        padding-bottom: 1rem;
+    }
+    
+    .wrapper {
+        max-width: 400px;
+    }
+    
+    .additional-info__grid-section {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        padding-top: 0;
+        position: relative;
+        top: -2.5rem;
+        
+    }
+    
+    .statistics {
+        gap: 3rem;
+        align-self: center;
+        text-align: center;
+        padding: 1.3rem 2rem;
+        position: relative;
+        top: -5rem;
+    }
+    .bio {
+        position: relative;
+        top: -6.7rem;
+    }
+
+    .user-name {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: start;
+        justify-content: flex-start;
+        position: relative;
+        top: -8.2rem;
+        left: 7rem;
+    }
+    
+    .joined-date {
+        position: relative;
+        top: 1.5rem;
+        font-size: 14px;
+    }
+    
+    .user-nick {
+        position: relative;
+        top: -10.5rem;
+        left: 7rem;
+    }
+    
+    .user-name > h1 {
+        font-size: 20px;
+    }
+
+    .result-section > img {
+        width: 6rem;
+    }
+    
+    .count {
+        font-size: 17px;
+    }
+    .error {
+        font-size: 10px;
+        line-height: 15px;
+        padding: 0 10px;
+        white-space: nowrap;
+    }
+    .search > div:nth-of-type(1) {
+        width: 70%;
+    }
+    input[type=text] {
+        font-size: 11.5px;
+    }
+
+    form {
+        padding: 0.4rem 0.7rem 0.4rem 1rem;
+    }
+}
+
 
 
 

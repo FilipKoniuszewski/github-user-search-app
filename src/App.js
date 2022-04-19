@@ -11,9 +11,27 @@ import {useState} from "react";
 
 
 function App() {
-    const [theme, setTheme] = useState('light')
+    const [theme, setTheme] = useState('dark')
     
     const [userInput, setUserInput] = useState("")
+    
+    const [isNotValidInput, setIsNotValidInput] = useState(false);
+    
+    const [searchedUserData, setSearchedUserData] = useState({
+        username: "The Octocat",
+        date: "25 Jan 2011",
+        nick: "octocat",
+        bio: "This profile has no bio",
+        repos: 8,
+        followers: 3938,
+        following: 9,
+        location: "San Francisco",
+        twitter: "Not Available",
+        website: "https://github.blog",
+        clan: "github",
+        avatar: defaultUser,
+        reposUrl: ""
+    })
     
     function changeTheme() {
         if (theme === 'light') {
@@ -24,8 +42,41 @@ function App() {
         }
     }
     
-    function HandleSubmit(e) {
+    function RaiseError() {
+        setIsNotValidInput(true)
+    }
+    
+    async function HandleSubmit(e) {
         e.preventDefault()
+        if (userInput !== "") {
+            let response = await fetch(`https://api.github.com/users/${userInput}`)
+                .then(response => {
+                    if (response.ok) {
+                        let data = response.json()
+                            .then(data => {
+                                console.log(data)
+                                setSearchedUserData({
+                                    username: data.name,
+                                    date: data.created_at,
+                                    nick: data.login,
+                                    bio: data.bio,
+                                    repos: data.public_repos,
+                                    followers: data.followers,
+                                    following: data.following,
+                                    location: !data.location ? 'disabled' : data.location,
+                                    twitter: !data.twitter_username ? 'disabled' : data.twitter_username,
+                                    website: !data.blog ? 'disabled' : data.blog,
+                                    clan: !data.company ? 'disabled' : data.company,
+                                    avatar: data.avatar_url,
+                                    reposUrl: data.repos_url
+                                })
+                            })
+                    }
+                    else {
+                        RaiseError();
+                    }
+                })
+        }
     }
     
     
@@ -51,38 +102,46 @@ function App() {
                                    placeholder="Search GitHub username…"
                                    autoComplete="off"
                                    value={userInput}
-                                   onChange={e => setUserInput(e.target.value) }/>
+                                   onChange={e => {
+                                       setUserInput(e.target.value) 
+                                       setIsNotValidInput(false);
+                                   }}/>
                         </div>
-                        <input type="submit"
-                               name="submit"
-                               id="submit"
-                               onClick={(e) => HandleSubmit(e)}
-                               value="Search"/>
+                        <div>
+                            <div className={`error ${isNotValidInput ? `active-error` : 'inactive-error'}`}>
+                                No Results
+                            </div>
+                            <input type="submit"
+                                   name="submit"
+                                   id="submit"
+                                   onClick={(e) => HandleSubmit(e)}
+                                   value="Search"/>
+                        </div>
                     </form>
                     <div className="result-section">
-                        <img src={defaultUser} alt="" />
+                        <img src={searchedUserData.avatar} alt="" />
                         <div className="user-info-section">
                             <div className="user-name">
                                 <h1 className="name">
-                                    The Octocat
+                                    {searchedUserData.username}
                                 </h1>
                                 <div className="joined-date">
-                                    Joined 25 Jan 2011
+                                    Joined {new Intl.DateTimeFormat('en-GB',{year:"numeric", month:"short",day:"2-digit"}).format(new Date(searchedUserData.date)).split(" ").join(" ")}
                                 </div>
                             </div>
                             <h3 className="user-nick">
-                                @octocat
+                                @{searchedUserData.nick}
                             </h3>
                             <div className="bio">
-                                This profile has no bio
+                                {searchedUserData.bio}
                             </div>
                             <div className="statistics">
-                                <div className="repos-count">
+                                <div className='repos-count'>
                                     <h4 className="heading">
                                         Repos
                                     </h4>
                                     <h2 className="count">
-                                        8
+                                        {searchedUserData.repos}
                                     </h2>
                                 </div>
                                 <div className="followers-count">
@@ -90,7 +149,7 @@ function App() {
                                         Followers
                                     </h4>
                                     <h2 className="count">
-                                        3938
+                                        {searchedUserData.followers}
                                     </h2>
                                 </div>
                                 <div className="following-count">
@@ -98,26 +157,34 @@ function App() {
                                         Following
                                     </h4>
                                     <h2 className="count">
-                                        9
+                                        {searchedUserData.following}
                                     </h2>
                                 </div>
                             </div>
                             <div className="additional-info__grid-section">
-                                <div className="location">
+                                <div className={`location ${searchedUserData.location === 'disabled' && 'not-available'}`}>
                                     <img src={locationImage} alt="" />
-                                    <span>San Francisco</span>
+                                    {searchedUserData.location === 'disabled'
+                                        ? <span>Not Available</span>
+                                        : <span>{searchedUserData.location}</span>}
                                 </div>
-                                <div className="twitter-link">
+                                <div className={`twitter-link ${(searchedUserData.twitter === 'disabled' || searchedUserData.username === "The Octocat") && 'not-available'}`}>
                                     <img src={twitterImage} alt="" />
-                                    <span>Not Available</span>
+                                    {searchedUserData.twitter === 'disabled' || searchedUserData.twitter === 'Not Available'
+                                        ? <span>Not Available</span>
+                                        : <span>{searchedUserData.twitter}</span>}
                                 </div>
-                                <div className="website-link">
+                                <div className={`website-link ${searchedUserData.website === 'disabled' && 'not-available'}`}>
                                     <img src={websiteImage} alt="" />
-                                    <a href="https://github.blog" target="_blank">https://github.blog</a>
+                                    {searchedUserData.website === 'disabled'
+                                        ? <span>Not Available</span>
+                                        : <a href="https://github.blog" target="_blank">{searchedUserData.website}</a>}
                                 </div>
-                                <div className="clan">
+                                <div className={`clan ${searchedUserData.clan === 'disabled' && 'not-available'}`}>
                                     <img src={clanImage} alt="" />
-                                    <span>@github</span>
+                                    {searchedUserData.clan === 'disabled' 
+                                        ? <span>Not Available</span> 
+                                        : <span>@{searchedUserData.clan}</span>}
                                 </div>
                             </div>
                         </div>
