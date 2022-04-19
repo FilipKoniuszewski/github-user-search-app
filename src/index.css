@@ -242,6 +242,17 @@ h4 {
     gap: 1rem;
 }
 
+.additional-info__grid-section > div > span,
+.additional-info__grid-section > div > a {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
 .additional-info__grid-section > div {
     color: var(--primary-text);
     filter: brightness(100%);
@@ -285,7 +296,7 @@ h4 {
     opacity: 0;
 }
 
-@media (min-width: 768px) and (max-width: 1440px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .result-section {
         flex-direction: column;
         padding-bottom: 1rem;
@@ -311,7 +322,7 @@ h4 {
     .statistics {
         gap: 5rem;
         align-self: center;
-        padding: 1rem 3.5rem 1rem 1.8rem;
+        padding: 1rem 6.5rem 1rem 1.8rem;
         position: relative;
         top: -5rem;
     }
@@ -374,7 +385,8 @@ h4 {
     }
     
     .wrapper {
-        max-width: 400px;
+        max-width: 327px;
+        margin: auto;
     }
     
     .additional-info__grid-section {
@@ -387,10 +399,10 @@ h4 {
     }
     
     .statistics {
-        gap: 3rem;
+        gap: 2rem;
         align-self: center;
         text-align: center;
-        padding: 1.3rem 2rem;
+        padding: 1.3rem 1rem;
         position: relative;
         top: -5rem;
     }
@@ -401,12 +413,12 @@ h4 {
 
     .user-name {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0;
         align-items: start;
         justify-content: flex-start;
         position: relative;
-        top: -8.2rem;
-        left: 7rem;
+        top: -7.5rem;
+        left: 5rem;
     }
     
     .joined-date {
@@ -417,29 +429,30 @@ h4 {
     
     .user-nick {
         position: relative;
-        top: -10.5rem;
-        left: 7rem;
+        top: -9.5rem;
+        left: 5rem;
+        font-size: 14px;
     }
     
     .user-name > h1 {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .result-section > img {
-        width: 6rem;
+        width: 5rem;
+        margin-left: -1rem;
     }
     
     .count {
         font-size: 17px;
     }
     .error {
-        font-size: 10px;
+        font-size: 7px;
         line-height: 15px;
-        padding: 0 10px;
         white-space: nowrap;
     }
     .search > div:nth-of-type(1) {
-        width: 70%;
+        width: 100%;
     }
     input[type=text] {
         font-size: 11.5px;
