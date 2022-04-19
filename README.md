@@ -1,6 +1,6 @@
 # Frontend Mentor - GitHub user search app
 
-![Design preview for the GitHub user search app coding challenge](./preview.jpg)
+![Design preview for the GitHub user search app coding challenge](https://user-images.githubusercontent.com/82803009/163737637-4a7fe7b3-7346-481b-b284-237468d4a2d2.jpg)
 
 ## Welcome! 👋
 
