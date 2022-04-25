@@ -178,10 +178,10 @@ function App() {
                                     <img src={websiteImage} alt="" />
                                     {searchedUserData.website === 'disabled'
                                         ? <span>Not Available</span>
-                                        : <a href="https://github.blog" target="_blank">{searchedUserData.website}</a>}
+                                        : <a href={searchedUserData.website} target="_blank">{searchedUserData.website}</a>}
                                 </div>
                                 <div className={`clan ${searchedUserData.clan === 'disabled' && 'not-available'}`}>
-                                    <img src={clanImage} alt="" />
+                                    <img src={clanImage} alt="" />gi
                                     {searchedUserData.clan === 'disabled' 
                                         ? <span>Not Available</span> 
                                         : <span>@{searchedUserData.clan}</span>}
